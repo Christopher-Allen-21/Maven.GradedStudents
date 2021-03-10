@@ -58,6 +58,7 @@ public class Student {
         return sum/examScores.size();
     }
 
+    @Override
     public String toString(){
         String returnString = "Student Name: "+firstName+" "+lastName+"\nAverage Score: "+this.getAvgExamScore()+"\nExam Scores: ";
         for(int i=0;i<examScores.size();i++){
