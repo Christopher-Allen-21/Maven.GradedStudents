@@ -69,28 +69,29 @@ public class Classroom {
     }
 
 
-    public HashMap<Student,Integer> getGradeBook(){
-        HashMap<Student,Integer> returnHashMap = new HashMap<>();
-        Double[] avgScore = new Double[students.size()];
+    public HashMap<Student,Character> getGradeBook(){
+        Student[] lowToHigh = getStudentsByScore();
+        HashMap<Student,Character> gradeBook = new LinkedHashMap<>();
 
-        for(int i=0;i<students.size();i++){
-            avgScore[i] = students.get(i).getAvgExamScore();
-        }
-
-        int count, percent;
-        for(int i=0;i<avgScore.length;i++){
-            count = 0;
-            for(int j=0; j<avgScore.length;j++){
-                if(avgScore[i]>avgScore[j]){
-                    count++;
-                }
+        for(int i=0;i< lowToHigh.length;i++){
+            double percentile = ((i+1)*100.0) / lowToHigh.length;
+            if(percentile>89.0){
+                gradeBook.put(lowToHigh[i],'A');
             }
-            percent = (count * 100) / (avgScore.length-1);
-            returnHashMap.put(students.get(i),percent);
+            else if(percentile>51.0 && percentile <= 89.0){
+                gradeBook.put(lowToHigh[i],'B');
+            }
+            else if(percentile>30.0 && percentile <= 51.0){
+                gradeBook.put(lowToHigh[i],'C');
+            }
+            else if(percentile>11.0 && percentile <= 30.0){
+                gradeBook.put(lowToHigh[i],'D');
+            }
+            else if(percentile<=11){
+                gradeBook.put(lowToHigh[i],'F');
+            }
         }
-
-        return returnHashMap;
-
+        return gradeBook;
     }
 
 
